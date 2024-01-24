@@ -15,7 +15,7 @@ permissions:
 jobs:
   deploy-dev:
     env:
-      GH_TOKEN: ${{ github.token }}
+      GH_TOKEN: ${{ secrets.PAT }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
