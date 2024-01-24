@@ -44,7 +44,7 @@ jobs:
       - name: Get Workflow ID
         id: get-run-id
         run: |
-          run_id=$(gh run list --workflow=deploy-dev-apply.yaml --json url --jq '.[].url' | rev | cut -d '/' -f 1 | rev)
+          run_id=$(gh run list --workflow=deploy-dev-apply.yaml --json url --jq '.[0].url' | rev | cut -d '/' -f 1 | rev)
           echo "run_id=${run_id}" >> $GITHUB_OUTPUT
 
       - name: Wait for completion
