@@ -38,6 +38,9 @@ jobs:
       - name: Run Apply
         run: gh workflow run deploy-dev-apply.yaml -f component=${{ matrix.component }}
 
+      - name: Wait for job to start
+        run: sleep 10s
+
       - name: Get Workflow ID
         id: get-run-id
         run: |
