@@ -20,6 +20,8 @@ jobs:
         component: [ api,drs,dms ]
       fail-fast: true
       max-parallel: 1
+    outputs:
+      component: ${{ steps.set-output.outputs.component }}
     steps:
       - name: 📨 Checkout
         uses: actions/checkout@v4
@@ -27,8 +29,29 @@ jobs:
       - name: Echo
         run: echo ${{ matrix.component }}
 
-      - name: Apply
-        uses: ./.github/workflows/deploy-dev-apply.yaml@master
-        with:
-          component: ${{ matrix.component }}
+#      - name: Set Output
+#        id: set-output
+#        run: echo "component=${{ matrix.component }}" >> $GITHUB_OUTPUT
 
+      - name: Run Apply
+        run: gh workflow run deploy-dev-apply.yaml -f component=${{ matrix.component }}
+
+      - name: Get Workflow ID
+        id: get-run-id
+        run: |
+          run_id=$(gh run list --workflow=deploy-dev.yaml --json url --jq '.[].url' | rev | cut -d '/' -f 1 | rev)
+          echo "run_id=$run_id" >> $GITHUB_OUTPUT
+
+      - name: Wait for completion
+        run: gh run view ${{ steps.get-run-id.outputs.run_id }}
+#
+#  apply:
+#    strategy:
+#      matrix:
+#        component: [ api,drs,dms ]
+#      fail-fast: true
+#      max-parallel: 1
+#    needs: deploy-dev
+#    uses: ./.github/workflows/deploy-dev-apply.yaml
+#    with:
+#      component: ${{ needs.deploy-dev.outputs.component }}

@@ -1,7 +1,7 @@
 name: Deploy Dev Apply
 
 on:
-  workflow_call:
+  workflow_dispatch:
     inputs:
       component:
         description: The associated Terraform components for the service
@@ -21,4 +21,12 @@ jobs:
 
       - name: Echo
         run: echo ${{ inputs.component }}
+
+      - name: ⚙️ Setup Node.js 1
+        uses: actions/setup-node@v3
+
+      - name: ⚙️ Setup Node.js 2
+        uses: actions/setup-node@v3
+
+
 
