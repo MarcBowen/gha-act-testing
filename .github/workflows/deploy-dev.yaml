@@ -14,8 +14,15 @@ permissions:
 
 jobs:
   deploy-dev:
-    env:
-      GH_TOKEN: ${{ secrets.PAT }}
+    permissions:
+      actions: write
+      checks: write
+      contents: read
+      packages: read
+      repository-projects: read
+      statuses: read
+#    env:
+#      GH_TOKEN: ${{ secrets.PAT }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
