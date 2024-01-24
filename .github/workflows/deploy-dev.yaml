@@ -1,0 +1,27 @@
+name: Deploy Dev
+
+on:
+  workflow_call:
+    inputs:
+      components:
+        description: The associated Terraform components for the service
+        type: string
+        required: true
+
+permissions:
+  id-token: write
+  contents: write
+
+jobs:
+  deploy-dev:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        component: [ api,drs,dms ]
+    steps:
+      - name: 📨 Checkout
+        uses: actions/checkout@v4
+
+      - name: Echo
+        run: echo ${{ matrix.component }}
+
