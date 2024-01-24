@@ -1,7 +1,7 @@
 name: Deploy Dev
 
 on:
-  workflow_call:
+  workflow_dispatch:
     inputs:
       components:
         description: The associated Terraform components for the service
@@ -18,10 +18,17 @@ jobs:
     strategy:
       matrix:
         component: [ api,drs,dms ]
+      fail-fast: true
+      max-parallel: 1
     steps:
       - name: 📨 Checkout
         uses: actions/checkout@v4
 
       - name: Echo
         run: echo ${{ matrix.component }}
+
+      - name: Apply
+        uses: ./.github/workflows/deploy-dev-apply.yaml@master
+        with:
+          component: ${{ matrix.component }}
 
