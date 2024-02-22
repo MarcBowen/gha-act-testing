@@ -9,55 +9,15 @@ permissions:
 
 jobs:
   plan:
-    permissions:
-      actions: write
-      checks: write
-      contents: read
-      packages: read
-      repository-projects: read
-      statuses: read
-    env:
-      GH_TOKEN: ${{ github.token }}
-
-    runs-on: ubuntu-latest
     strategy:
       matrix:
         component: [ api,drs,dms ]
       fail-fast: true
       max-parallel: 1
 
-    steps:
-      - name: 📨 Checkout
-        uses: actions/checkout@v4
-
-      - name: Echo
-        run: echo ${{ matrix.component }}
-
-      - name: Plan
-        run: |
-          echo "Running plan"
-          sleep 10s
-
-
-  apply:
-    environment: 'live'
-    needs: plan
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        component: [ api,drs,dms ]
-      fail-fast: true
-      max-parallel: 1
-
-    steps:
-      - name: 📨 Checkout
-        uses: actions/checkout@v4
-
-      - name: Echo
-        run: echo ${{ matrix.component }}
-
-      - name: Running Apply
-        run: echo "running apply"
+    uses: ./reusable-deploy.yaml@master
+    with:
+      component: ${{ matrix.component }}
 
 
 

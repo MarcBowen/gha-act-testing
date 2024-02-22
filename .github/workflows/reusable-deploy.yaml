@@ -1,0 +1,42 @@
+name: Terraform Deploy (Reusable)
+
+on:
+  workflow_call:
+    inputs:
+      component:
+        description: The Terraform component
+        type: string
+        required: false
+
+permissions:
+  id-token: write
+  contents: write
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📨 Checkout
+        uses: actions/checkout@v4
+
+      - name: Echo
+        run: echo ${{ matrix.component }}
+
+      - name: Plan
+        run: |
+          echo "Running plan"
+          sleep 10s
+
+  Apple:
+    environment: 'live'
+    needs: plan
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📨 Checkout
+        uses: actions/checkout@v4
+
+      - name: Echo
+        run: echo ${{ matrix.component }}
+
+      - name: Running Apply
+        run: echo "running apply"
