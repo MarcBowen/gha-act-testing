@@ -58,11 +58,10 @@ jobs:
 
       - name: Wait for completion
         run: |
-          echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
           response=$(gh api \
           -H "Accept: application/vnd.github+json" \
           -H "X-GitHub-Api-Version: 2022-11-28" \
-          /repos/dvsa/des-terraform/actions/runs/${{ steps.get-run-id.outputs.run_id }})
+          /repos/MarcBowen/gha-act-testing/actions/runs/${{ steps.get-run-id.outputs.run_id }})
           echo jq -r '.status' $response
 
       - name: Wait for job to end
@@ -70,11 +69,10 @@ jobs:
 
       - name: Wait for completion
         run: |
-          echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
           response=$(gh api \
           -H "Accept: application/vnd.github+json" \
           -H "X-GitHub-Api-Version: 2022-11-28" \
-          /repos/dvsa/des-terraform/actions/runs/${{ steps.get-run-id.outputs.run_id }})
+          /repos/MarcBowen/gha-act-testing/actions/runs/${{ steps.get-run-id.outputs.run_id }})
           echo jq -r '.status' $response
 #
 #  apply:
