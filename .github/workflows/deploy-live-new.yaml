@@ -15,7 +15,7 @@ jobs:
       fail-fast: true
       max-parallel: 1
 
-    uses: MarcBowen/gha-act-testing/reusable-deploy.yaml@master
+    uses: MarcBowen/gha-act-testing/.github/workflows/reusable-deploy.yaml@master
     with:
       component: ${{ matrix.component }}
 
