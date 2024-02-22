@@ -72,8 +72,6 @@ jobs:
           done
           
           echo "job complete"
-          
-                - name: Wait for completion
 
       - name: Output result log
         run: |
