@@ -57,7 +57,7 @@ jobs:
           echo "run_id=${run_id}" >> $GITHUB_OUTPUT
 
       - name: Wait for completion
-        run: gh run view ${{ steps.get-run-id.outputs.run_id }}
+        run: gh run view ${{ steps.get-run-id.outputs.run_id }} --log
 #
 #  apply:
 #    strategy:
