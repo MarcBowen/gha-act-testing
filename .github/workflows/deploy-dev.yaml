@@ -58,7 +58,7 @@ jobs:
 
       - name: Wait for completion
         run: |
-          while [ $status == "in_progress" ]
+          while [ "$status" == "in_progress" ]
           do
             sleep 5s
           
