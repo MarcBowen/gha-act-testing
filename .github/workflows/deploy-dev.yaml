@@ -58,22 +58,22 @@ jobs:
 
       - name: Wait for completion
         run: |
-          response=$(gh api \
+          response='$(gh api \
           -H "Accept: application/vnd.github+json" \
           -H "X-GitHub-Api-Version: 2022-11-28" \
-          /repos/MarcBowen/gha-act-testing/actions/runs/${{ steps.get-run-id.outputs.run_id }})
-          echo jq -r '.status' $response
+          /repos/MarcBowen/gha-act-testing/actions/runs/${{ steps.get-run-id.outputs.run_id }})'
+          echo $response | jq -r '.status'
 
       - name: Wait for job to end
         run: sleep 20s
 
       - name: Wait for completion
         run: |
-          response=$(gh api \
+          response='$(gh api \
           -H "Accept: application/vnd.github+json" \
           -H "X-GitHub-Api-Version: 2022-11-28" \
-          /repos/MarcBowen/gha-act-testing/actions/runs/${{ steps.get-run-id.outputs.run_id }})
-          echo jq -r '.status' $response
+          /repos/MarcBowen/gha-act-testing/actions/runs/${{ steps.get-run-id.outputs.run_id }})'
+          echo $response | jq -r '.status'
 #
 #  apply:
 #    strategy:
